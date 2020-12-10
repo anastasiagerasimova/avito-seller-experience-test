@@ -2,11 +2,8 @@ import React from 'react'
 import ErrorIndicator from '../error-indicator/index'
 
 export default class ErrorBoundry extends React.Component{
-    constructor(){
-        super()
-        this.state ={
-            hasError: false
-        }
+    state ={
+        hasError: false
     }
 
     componentDidCatch(){

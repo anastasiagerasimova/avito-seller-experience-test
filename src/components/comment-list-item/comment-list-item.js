@@ -6,23 +6,22 @@ import {convertTime} from '../../utils'
 import './comment-list-item.css'
 
 class CommentListItem extends React.Component{
-    constructor(){
-        super();
-        this.hackernewsService = new HackernewsService();
-        this.state = {
-            nestedComments: [],
-            commentsOpened: false
-        };
-    }
+    hackernewsService = new HackernewsService();
+    state = {
+        nestedComments: [],
+        commentsOpened: false
+    };
 
     componentDidMount(){
         this.updateNestedComments();
     }
     
     onToggleNestedComments = () =>{
-        this.setState({
-            commentsOpened: !this.state.commentsOpened
-        });
+        this.setState((state) => {
+            return{
+                commentsOpened: !state.commentsOpened
+            }
+        })
     }
 
     onLoadedNestedComments = (comments) => {
@@ -51,7 +50,7 @@ class CommentListItem extends React.Component{
                     </div>
                     <p className="comment-content" dangerouslySetInnerHTML={{__html: text}}></p>
                     {
-                        (nestedComments && nestedComments.length !== 0) 
+                        (nestedComments.length) 
                             ? (<button onClick={this.onToggleNestedComments} className="comment-btn-more">
                                 {
                                     commentsOpened 
@@ -63,7 +62,7 @@ class CommentListItem extends React.Component{
                     }
                 </div>
                 {
-                    (nestedComments.length !== 0 && commentsOpened)
+                    (nestedComments.length && commentsOpened)
                         ? (<ul className="comment-list-inner">
                             {nestedComments.map((comment) => <CommentListItem key={comment.id} comment={comment} />)}
                         </ul>)

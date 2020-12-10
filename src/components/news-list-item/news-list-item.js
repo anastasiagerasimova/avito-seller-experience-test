@@ -3,7 +3,7 @@ import {convertTime} from '../../utils'
 import './news-list-item.css'
 
 const NewsListItem = ({story, index, onItemSelected}) => {
-    const {id, title, url, by, score, descendants, time} = story
+    const {id, title, by, score, descendants, time} = story
  
     return(
         <li className="news-list-item list-group-item">
@@ -13,7 +13,6 @@ const NewsListItem = ({story, index, onItemSelected}) => {
                     <h5 className="news-title mb-1" onClick={() => {onItemSelected(id)}}>{title}</h5>
                     <small className="text-muted">{convertTime(time)}</small>
                 </div>
-                <small><a href={url} className="news-source" target="_blank" rel="noreferrer">(Source link)</a></small>
                 <div className="news-footer">
                     <small className="text-muted">by {by}</small>
                     <small className="text-muted">{score} score</small>
