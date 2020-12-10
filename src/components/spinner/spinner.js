@@ -4,16 +4,7 @@ import './spinner.css'
 
 const Spinner = () => {
     return (
-        <div className="lds-spinner">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+        <div className="lds-facebook">
             <div></div>
             <div></div>
             <div></div>

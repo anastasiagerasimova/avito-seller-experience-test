@@ -1,0 +1,56 @@
+.story-details-wrapper{
+    flex-direction: column;
+    align-items: center;
+}
+
+.story-details-wrapper .row-btn{
+    margin-bottom: 1rem;
+    align-self: start;
+}
+
+.story-details{
+    width: 100%;
+    margin-bottom: 1.5rem;
+    padding: .75rem 1.25rem;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.3rem;
+    font-family: fell, Georgia, Cambria, "Times New Roman", Times, serif;
+    color:#3a3f3f;
+}
+
+.story-details .story-details-footer span{
+    margin-right: .6rem;
+}
+
+.story-details .story-details-header{
+    margin-bottom: 2rem;
+    align-items: baseline;
+}
+
+.story-details .story-details-header a{
+    margin-left: .5rem;
+}
+
+.story-details .story-details-about{
+    margin-bottom: .2rem;
+}
+
+.story-details .story-details-about span{
+    position: relative;
+    margin-right: 1rem;
+}
+
+.story-details .story-details-about span:first-child:before{
+    position: absolute;
+    content: '';
+}
+
+.story-details .story-details-about span:before{
+    position: absolute;
+    content: '\2022';
+    top: -0.1rem;
+    left:-0.5rem;
+    transform: translateX(-50%);
+    font-size: .8rem;
+}

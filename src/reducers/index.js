@@ -1,17 +1,14 @@
-const initialState = {
-    stories: []
-}
+import updateNewsList from './news-list'
+import updateCommentList from './comment-list'
+import updateSelectedStory from './selected-story'
 
-const reducer = (state = initialState, action) => {
-    switch(action.type){
-        case 'FETCH_NEWSTORIES_SUCCES':
-            return {
-                ...state,
-                stories: action.payload
-            }
-        default:
-            return state
+const reducer = (state, action) => {
+    return {
+        newsList: updateNewsList(state, action),
+        commentList: updateCommentList(state, action),
+        selectedStory: updateSelectedStory(state, action)
     }
+
 }
 
 export default reducer

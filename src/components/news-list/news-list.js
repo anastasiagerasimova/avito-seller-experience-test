@@ -1,27 +1,76 @@
+import React from 'react'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+
+import NewsListItem from '../news-list-item'
+import {withHackernewsService} from '../hoc'
+import {fetchNewStories} from '../../actions'
+import {compose} from '../../utils'
+import Spinner from '../spinner'
+import ErrorIndicator from '../error-indicator'
+
 import './news-list.css'
 
-const NewsList = () => {
-    return (
-        <ul className="news-list">
-            <li className="list-group-item">
-                <div className="news-list-item">
-                    <div className="news-header d-flex">
-                        <span class="news-score">1</span>
-                        <h5 className="mb-1">My YC app: Dropbox - Throw away your USB drive
-                            <small><a href="#" className="news-source">(http://www.getdropbox.com/u/2/screencast.html)</a></small>
-                        </h5>
-                        <small className="text-muted">04.12.2020 17:51</small>
-                    </div>
-                    {/* <a href="#" className="news-source">http://www.getdropbox.com/u/2/screencast.html</a> */}
-                    <div className="news-footer">
-                        <small className="text-muted">by <a href="" class="">dhouston</a></small>
-                        <small className="text-muted">70 points</small>
-                        <small className="text-muted"><a href="" class="">53 comments</a></small>
-                    </div>
-                </div>
-            </li>
+const NewsList = ({stories, onItemSelected, ...props}) => {
+    return(
+        <ul className = "news-list">
+            {stories.map((story, index) => {
+                    return (<NewsListItem key={story.id} story={story} index={index+1} onItemSelected={onItemSelected}/>)
+                })
+            }
         </ul>
     )
 }
 
-export default NewsList 
+class NewsListContainer extends React.Component{
+    componentDidMount(){
+        this.props.fetchNewStories()
+        this.interval = setInterval(this.updatePlanet, 10000)
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.interval)
+    }
+
+    render() {
+        const {stories, storiesLoading, storiesError, onItemSelected, fetchNewStories} = this.props
+        
+        const spinner = storiesLoading ? <Spinner /> : null;
+        const content = (!storiesLoading && !storiesError) ? <NewsList stories={stories} onItemSelected={onItemSelected} {...this.props}/> : null;
+        const errorMessege = storiesError ? <ErrorIndicator/> : null;
+
+        return(
+            <div className="news-list-wrapper d-flex">
+                <div className="btn-row">
+                    <button className="btn btn-outline-success" onClick={fetchNewStories}>
+                        <i className="fa fa-refresh" aria-hidden="true"></i> Refresh stories
+                    </button>
+                </div>
+                {spinner}
+                {content}
+                {errorMessege}
+            </div>
+
+        )
+    }
+}
+
+const mapStateToProps = ({newsList: {stories, storiesLoading, storiesError}})  => {
+    return {
+        stories,
+        storiesLoading,
+        storiesError
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    const {hackernewsService} = ownProps
+    return bindActionCreators({
+        fetchNewStories: fetchNewStories(hackernewsService)
+    }, dispatch)
+}
+
+export default compose(
+    withHackernewsService(),
+    connect(mapStateToProps, mapDispatchToProps)
+)(NewsListContainer)

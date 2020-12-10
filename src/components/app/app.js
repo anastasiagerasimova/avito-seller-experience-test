@@ -1,18 +1,13 @@
-import React from 'react'
+import {Route, Switch} from 'react-router-dom'
+import {StoryPage, HomePage} from '../pages'
 
-import {withHackernewsService} from '../hoc'
-import Header from '../header/index'
-import NewsList from '../news-list'
-import CommentList from '../comment-list'
-
-const App = ({ hackernewsService }) => {
+const App = () => {
     return( 
-        <main className="container">
-            <Header />
-            <NewsList />
-            <CommentList />
-        </main>
+        <Switch>
+            <Route path='/' component={HomePage} exact/>
+            <Route path='/stories/:id' render={({match}) => <StoryPage selectedItemId={match.params.id} />} />
+        </Switch>
     )
 }
 
-export default withHackernewsService()(App)
+export default App

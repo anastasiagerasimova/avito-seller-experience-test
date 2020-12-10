@@ -1,14 +1,14 @@
 import React from 'react'
 
+import './error-indicator.css'
+
 const ErrorIndicator = () => {
   return(
-    <div className="jumbotron text-center">
-      <div className="container">
-        <h2>Произошла ошибка!</h2>
-        <p className="lead">В приложении произошла ошибка. Перезагрузите приложение или попробуйте поже.</p>
-      </div>
-  </div>
+    <div className="error-indicator jumbotron text-center">
+        <h4>An error has occurred!</h4>
+        <p className="lead">Opps! Something went wrong on the server. Please reload the page or try again later.</p>
+    </div>
   )
-};
+}
 
 export default ErrorIndicator

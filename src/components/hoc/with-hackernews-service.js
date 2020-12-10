@@ -1,4 +1,4 @@
-import { HackernewsServiceConsumer } from '../hackernews-service-context/index'
+import {HackernewsServiceConsumer} from '../hackernews-service-context/index'
 
 const withHackernewsService = () => (Wrapped) => {
     return (props) => {
@@ -6,7 +6,7 @@ const withHackernewsService = () => (Wrapped) => {
             <HackernewsServiceConsumer>
                 {
                     (hackernewsService) => {
-                        return(<Wrapped {...props} hackernewsService={hackernewsService}/>)
+                        return <Wrapped {...props} hackernewsService={hackernewsService}/>
                     }
                 }
             </HackernewsServiceConsumer>

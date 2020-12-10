@@ -1,0 +1,52 @@
+.comment-list-item{
+    flex-direction: column;
+    margin-bottom: .7rem;
+}
+
+.comment-list-item:last-child{
+    margin-bottom: 0;
+}
+
+.comment + ul{
+    margin-top: .7rem;
+}
+
+.comment{
+    padding: .75rem 1.25rem;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.3rem;
+    color:#3a3f3f;
+}
+
+.comment .comment-details{
+    align-items: center;
+    margin-bottom: .4rem;
+}
+
+.comment .comment-details small i{
+    margin-right: .3rem;
+    font-size: .9rem;
+}
+
+.comment .comment-details .comment-author{
+    margin-right: 0.7rem;
+    font-weight: 600;
+}
+
+.comment .comment-btn-more{
+    outline: none !important; 
+    outline-width: 0;
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: tomato;
+}
+
+.comment-list-inner{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 95%;
+    align-self: flex-end;
+}
