@@ -57,7 +57,7 @@ class CommentListContainer extends React.Component{
         )
     }
 }
- 
+
 const mapStateToProps = ({commentList: {comments, commentsLoading, commentsError}}) => {
     return {
         comments,

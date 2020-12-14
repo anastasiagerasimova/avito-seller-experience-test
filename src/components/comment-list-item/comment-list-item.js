@@ -6,6 +6,7 @@ import {convertTime} from '../../utils'
 import './comment-list-item.css'
 
 class CommentListItem extends React.Component{
+    _isMounted = false;
     hackernewsService = new HackernewsService();
     state = {
         nestedComments: [],
@@ -13,6 +14,7 @@ class CommentListItem extends React.Component{
     };
 
     componentDidMount(){
+        this._isMounted = true;
         this.updateNestedComments();
     }
     
@@ -25,9 +27,11 @@ class CommentListItem extends React.Component{
     }
 
     onLoadedNestedComments = (comments) => {
-        this.setState({
-            nestedComments: comments.filter(comment => comment.deleted !== true)
-        });
+        if (this._isMounted) {
+            this.setState({
+                nestedComments: comments.filter(comment => comment.deleted !== true)
+            });
+        }
     }
 
     updateNestedComments = () => {
@@ -35,6 +39,10 @@ class CommentListItem extends React.Component{
         this.hackernewsService
             .getComments(comment.id)
             .then(this.onLoadedNestedComments)
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     render(){

@@ -25,7 +25,7 @@ const NewsList = ({stories, onItemSelected, ...props}) => {
 class NewsListContainer extends React.Component{
     componentDidMount(){
         this.props.fetchNewStories()
-        this.interval = setInterval(this.updatePlanet, 10000)
+        this.interval = setInterval(this.props.fetchNewStories, 60000)
     }
 
     componentWillUnmount(){
