@@ -17,7 +17,9 @@ export default class HackernewsService{
     getNewStories = async() => {
         const allId = await this.getIdsNewStories()
         return await Promise.all(allId.map(async (id) => {
-            return await this.getItem(id)
+            let result = await this.getItem(id)
+            while(result === null) result = await this.getItem(id)
+            return result 
         }))
     }
 
