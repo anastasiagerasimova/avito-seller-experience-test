@@ -1,15 +1,12 @@
-import {HackernewsServiceConsumer} from '../hackernews-service-context/index'
+import React, {useContext}from 'react'
+import HackerNewsServiceContect from '../hackernews-service-context'
 
 const withHackernewsService = () => (Wrapped) => {
     return (props) => {
+        const hackernewsService = useContext(HackerNewsServiceContect)
+
         return(
-            <HackernewsServiceConsumer>
-                {
-                    (hackernewsService) => {
-                        return <Wrapped {...props} hackernewsService={hackernewsService}/>
-                    }
-                }
-            </HackernewsServiceConsumer>
+            <Wrapped {...props} hackernewsService={hackernewsService} />
         )
     }
 }

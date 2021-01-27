@@ -1,11 +1,5 @@
 import React from 'react'
 
-const {
-    Provider: HackernewsServiceProvider,
-    Consumer: HackernewsServiceConsumer,
-} = React.createContext()
+const HackerNewsServiceContect = React.createContext()
 
-export {
-    HackernewsServiceProvider,
-    HackernewsServiceConsumer
-}
+export default HackerNewsServiceContect

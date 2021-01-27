@@ -5,6 +5,7 @@ export default class HackernewsService{
 
     getIdsNewStories = async() => {
         const res = await fetch(`${this._apiBase}/newstories.json`)
+        console.log(res.headers.get('Access-Control-Allow-Origin'))
         const body = await res.json()
         return body.slice(0, 100)
     }
@@ -17,7 +18,9 @@ export default class HackernewsService{
     getNewStories = async() => {
         const allId = await this.getIdsNewStories()
         return await Promise.all(allId.map(async (id) => {
-            return await this.getItem(id)
+            let result = await this.getItem(id)
+            while(result === null) result = await this.getItem(id)
+            return result 
         }))
     }
 

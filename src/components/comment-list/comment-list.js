@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
@@ -23,28 +23,24 @@ const CommentList = ({comments, ...props}) => {
     )
 }
 
-class CommentListContainer extends React.Component{
-    componentDidMount(){
-        this.props.fetchComments()
-        this.interval = setInterval(this.props.fetchComments, 60000)
-    }
+const CommentListContainer = (props) => {
+    const {comments, commentsLoading, commentsError, fetchComments} = props
+    
+    const spinner = commentsLoading ? <Spinner /> : null;
+    const content = (!commentsLoading && !commentsError) 
+        ? (comments.length ? <CommentList comments={comments} /> : <div className="comment-list-message">No comments yet</div>)
+        : null;
+    const errorMessege = commentsError? <ErrorIndicator/> : null;
 
-    componentWillUnmount(){
-        clearInterval(this.interval)
-    }
-
-    render(){
-        const {comments, commentsLoading, commentsError, fetchComments} = this.props
+    useEffect(() => {
+        fetchComments()
+        const interval = setInterval(fetchComments, 60000)
+        return () => clearInterval(interval)
+    }, [fetchComments])
        
-        const spinner = commentsLoading ? <Spinner /> : null;
-        const content = (!commentsLoading && !commentsError) 
-            ? (comments.length ? <CommentList comments={comments} /> : <div className="comment-list-message">No comments yet</div>)
-            : null;
-        const errorMessege = commentsError? <ErrorIndicator/> : null;
-        
-        return(
-            <div className="comment-list-wrapper d-flex">
-                <h4 className="comment-list-title">Comments</h4>
+    return(
+        <div className="comment-list-wrapper d-flex">
+            <h4 className="comment-list-title">Comments</h4>
                 <div className="btn-row">
                     <button className="btn btn-outline-success" onClick={fetchComments}>
                         <i className="fa fa-refresh" aria-hidden="true"></i> Refresh comments
@@ -53,9 +49,8 @@ class CommentListContainer extends React.Component{
                 {spinner}
                 {content}
                 {errorMessege}
-            </div>
-        )
-    }
+        </div>
+    )
 }
  
 const mapStateToProps = ({commentList: {comments, commentsLoading, commentsError}}) => {

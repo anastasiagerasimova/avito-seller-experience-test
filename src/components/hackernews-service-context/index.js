@@ -1,9 +1,3 @@
-import {
-    HackernewsServiceProvider, 
-    HackernewsServiceConsumer
-} from './hackernews-service-context'
+import HackerNewsServiceContect from './hackernews-service-context'
 
-export{
-    HackernewsServiceProvider,
-    HackernewsServiceConsumer
-}
+export default HackerNewsServiceContect

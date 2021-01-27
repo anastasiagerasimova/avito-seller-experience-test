@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {bindActionCreators} from 'redux'
@@ -31,34 +31,60 @@ const StoryDetails = ({story}) => {
     )
 }
 
-class StoryDetailsContainer extends React.Component{
+// class StoryDetailsContainer extends React.Component{
 
-    componentDidMount(){
-        this.props.fetchStory()
-    }
+//     componentDidMount(){
+//         this.props.fetchStory()
+//     }
 
-    render(){
-        const {story, storyLoading, storyError} = this.props
+//     render(){
+//         const {story, storyLoading, storyError} = this.props
 
-        const spinner = storyLoading ? <Spinner /> : null;
-        const content = (!storyLoading && !storyError) ? <StoryDetails story={story} /> : null;
-        const errorMessege = storyError? <ErrorIndicator /> : null;
-        return(
-            <div className="story-details-wrapper d-flex">
-                <div className="row-btn">
-                    <Link to="/">
-                        <button className="btn btn-outline-secondary btn-sm">
-                            <i className="fa fa-caret-left" aria-hidden="true"></i> Back
-                        </button>
-                    </Link>
-                </div>
-                {spinner}
-                {content}
-                {errorMessege}
+//         const spinner = storyLoading ? <Spinner /> : null;
+//         const content = (!storyLoading && !storyError) ? <StoryDetails story={story} /> : null;
+//         const errorMessege = storyError? <ErrorIndicator /> : null;
+//         return(
+//             <div className="story-details-wrapper d-flex">
+//                 <div className="row-btn">
+//                     <Link to="/">
+//                         <button className="btn btn-outline-secondary btn-sm">
+//                             <i className="fa fa-caret-left" aria-hidden="true"></i> Back
+//                         </button>
+//                     </Link>
+//                 </div>
+//                 {spinner}
+//                 {content}
+//                 {errorMessege}
+//             </div>
+//         )
+//     }
+
+// }
+
+const StoryDetailsContainer = (props) => {
+    const {story, storyLoading, storyError, fetchStory} = props
+
+    useEffect(()=>{
+        fetchStory()
+    }, [fetchStory])
+
+    const spinner = storyLoading ? <Spinner /> : null;
+    const content = (!storyLoading && !storyError) ? <StoryDetails story={story} /> : null;
+    const errorMessege = storyError? <ErrorIndicator /> : null;
+    return(
+        <div className="story-details-wrapper d-flex">
+            <div className="row-btn">
+                <Link to="/">
+                    <button className="btn btn-outline-secondary btn-sm">
+                        <i className="fa fa-caret-left" aria-hidden="true"></i> Back
+                    </button>
+                </Link>
             </div>
-        )
-    }
-
+            {spinner}
+            {content}
+            {errorMessege}
+        </div>
+    )
 }
 
 const mapStateToProps = ({selectedStory: {story, storyLoading, storyError}}) => {
